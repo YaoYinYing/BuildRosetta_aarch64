@@ -4,7 +4,7 @@ By Yinying Yao
 
 
 ## Distinguish x86 and arm arch in the env file
-This step is assuming your HPC provider have both login entrypoints to each arch using just one account.
+This step is assuming your HPC provider has both login entrypoints to each arch using just one account.
 
 Inspect processor's arch in `.bashrc` or `.bashrc.pre-oh-my-bash` when loging in
 ```shell
@@ -88,6 +88,7 @@ Here we build a copy of OpenMPI via Bisheng Clang
 # fetch a copy of OpenMPI src and flatten it followed by building and installation
 wget https://download.open-mpi.org/release/open-mpi/v4.1/openmpi-4.1.2.tar.bz2 -P /path-to/compressed
 cd /path-to/build/
+cd openmpi-4.1.2
 tar xf /path-to/compressed/openmpi-4.1.2.tar.bz2
 nohup bash /path-to-script/build_it_for_public.sh openmpi 4.1.2_w_fortran "--enable-mpi1-compatibility  FC=gfortran FCFLAGS='-fPIC -O0'  F77=gfortran FFLAGS='-fPIC -O0' F90=gfortran CC=clang CFLAGS='-fPIC' CXX=clang++" >~/logs/build_openmpi_w_fortran.log
 ```
@@ -103,10 +104,10 @@ Setup for Hisilicon aarch64 chips w/ Bisheng Clang
 ```shell
 # Non-mpi, Bisheng LLVM clang
 cd /path-to/rosetta/release-version/main/source
-cp /path-to/scripts/site.settings.Hisilicon_aarch64 tools/build/site.settings
+cp /path-to/repo/building_scripts/site.settings.Hisilicon_aarch64 tools/build/site.settings
 
 # w/ OpenMPI built via Bisheng LLVM clang
-cp /path-to/scripts/site.settings.Hisilicon_aarch64_mpi tools/build/site.settings
+cp /path-to/repo/building_scripts/site.settings.Hisilicon_aarch64_mpi tools/build/site.settings
 ```
 
 
@@ -213,6 +214,7 @@ popd
 ```shell
 cd <rosetta-path>
 export ROSETTA=$PWD;
+dded aarch64 bin dir to aarch64 env file
 echo "export ROSETTA=$ROSETTA" >>$envfile_arm
 echo 'export ROSETTA3_DB=$ROSETTA/main/database
 export ROSETTA_BIN=$ROSETTA/main/source/bin
