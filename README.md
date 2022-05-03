@@ -232,7 +232,7 @@ export ROSETTA_PYTHON_SCRIPTS=$ROSETTA/main/source/scripts/python/public
 
 export PATH=$PATH:$ROSETTA_BIN:$ROSETTA_PYTHON_SCRIPTS
 export PYTHONPATH=$ROSETTA/main/source/scripts/python/public
-export LD_LIBRARY_PATH=$ROSETTA/main/source/bin:$LD_LIBRARY_PATH ' >>~/.yyyrc
+export LD_LIBRARY_PATH=$ROSETTA/main/source/bin:$LD_LIBRARY_PATH ' >> $envfile_x86
 ```
 
 
