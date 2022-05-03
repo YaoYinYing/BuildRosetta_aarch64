@@ -88,8 +88,8 @@ Here we build a copy of OpenMPI via Bisheng Clang
 # fetch a copy of OpenMPI src and flatten it followed by building and installation
 wget https://download.open-mpi.org/release/open-mpi/v4.1/openmpi-4.1.2.tar.bz2 -P /path-to/compressed
 cd /path-to/build/
-cd openmpi-4.1.2
 tar xf /path-to/compressed/openmpi-4.1.2.tar.bz2
+cd openmpi-4.1.2
 nohup bash /path-to-script/build_it_for_public.sh openmpi 4.1.2_w_fortran "--enable-mpi1-compatibility  FC=gfortran FCFLAGS='-fPIC -O0'  F77=gfortran FFLAGS='-fPIC -O0' F90=gfortran CC=clang CFLAGS='-fPIC' CXX=clang++" >~/logs/build_openmpi_w_fortran.log
 ```
 Add to PATH and LD_LIBRARY_PATH.
@@ -106,7 +106,7 @@ Setup for Hisilicon aarch64 chips w/ Bisheng Clang
 cd /path-to/rosetta/release-version/main/source
 cp /path-to/repo/building_scripts/site.settings.Hisilicon_aarch64 tools/build/site.settings
 
-# w/ OpenMPI built via Bisheng LLVM clang
+# or w/ OpenMPI built via Bisheng LLVM clang
 cp /path-to/repo/building_scripts/site.settings.Hisilicon_aarch64_mpi tools/build/site.settings
 ```
 
@@ -204,6 +204,10 @@ comment this line (risky, untested, but helpful to prevent error throwing out du
 ## Build & Run 
 ```shell
 pushd /path-to/rosetta/release-version/main/source;
+
+# Non-MPI 
+./scons.py -j 20  mode=release cxx=clang bin;
+# or w/ MPI
 ./scons.py -j 20  mode=release cxx=clang bin extras=mpi;
 popd
 ```
