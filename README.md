@@ -175,7 +175,24 @@ check [this file](./building_scripts/setup_platforms.py)
     }.get(actual, "<unknown>")
 ```
 Also, setup Bisheng LLVM clang toolkit for version inspection.
+See the differences btw Bisheng LLVM clang and x86 clang in ``clang --version``
+```shell
+# x86 clang, installed by `apt install clang-12`
+clang-12 --version
+Ubuntu clang version 12.0.0-3ubuntu1~20.04.5
+Target: x86_64-pc-linux-gnu
+Thread model: posix
+InstalledDir: /usr/bin
 
+
+# Bisheng LLVM clang aarch64
+clang --version
+HUAWEI BiSheng Compiler 2.1.0.B010 clang version 12.0.0 (clang-0749c5924208 flang-d6f2a3bc24a5)
+Target: aarch64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /path-to/software_arm/bisheng/bisheng-compiler-2.1.0-aarch64-linux/bin
+```
+**Thus, the following code aims to tell SCons the correct version info of Clang**
 `rosetta/source/tools/build/setup_platforms.py:327`
 ```python
         if compiler_output:
@@ -218,7 +235,7 @@ popd
 ```shell
 cd <rosetta-path>
 export ROSETTA=$PWD;
-dded aarch64 bin dir to aarch64 env file
+# added aarch64 bin dir to aarch64 env file
 echo "export ROSETTA=$ROSETTA" >>$envfile_arm
 echo 'export ROSETTA3_DB=$ROSETTA/main/database
 export ROSETTA_BIN=$ROSETTA/main/source/bin
