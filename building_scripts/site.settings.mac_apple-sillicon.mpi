@@ -17,48 +17,48 @@
 # paths, but you can also append, override, or remove settings.
 
 import os
-
 settings = {
-	"site": {
-		"prepends": {
-			# Allows detection of the default compiler on your normal path
-			"program_path": os.environ["PATH"].split(":") if "PATH" in os.environ else [],
-			# Allows finding system libraries in non-standard locations
-			"library_path": os.environ["LD_LIBRARY_PATH"].split(":") if "LD_LIBRARY_PATH" in os.environ else [],
-			# Allows finding system library includes if those includes are in non-standard locations
-			"include_path": os.environ["INCLUDE"].split(":") if "INCLUDE" in os.environ else [],
-		},
-		"appends": {
-			"defines": ["USEMPI"],
-			"flags": {
-				"warn": [
-				],
-				"compile": [
-					"march=native",
-					"mtune=tsv110",
-					# Uncomment the following line if any library error occurs
-				],
-			},
-		},
-		"overrides": {
-			## Uncomment the following line if your compiler need additional environment variables to function (e.g. license key locations)
-			"ENV": os.environ,
+    "site" : {
+        "prepends" : {
+# Allows detection of the default compiler on your normal path
+            "program_path" : os.environ["PATH"].split(":") if "PATH" in os.environ else [],
+# Allows finding system libraries in non-standard locations
+            "library_path" : os.environ["LD_LIBRARY_PATH"].split(":") if "LD_LIBRARY_PATH" in os.environ else [],
+# Allows finding system library includes if those includes are in non-standard locations
+            "include_path" : os.environ["INCLUDE"].split(":") if "INCLUDE" in os.environ else [],
+        },
+        "appends" : {
+            "flags": {
+                "warn": [
+		    	"Wno-error=unused-but-set-variable"
+                ],
+                "compile" : [
+                    "march=native",
+                    #"mtune=native",
+		    		"mcpu=apple-m1",
+                    # Uncomment the following line if any library error occurs
+                ],
+            },
+        },
+        "overrides" : {
+## Uncomment the following line if your compiler need additional environment variables to function (e.g. license key locations)
+           "ENV" : os.environ,
 
-			## Uncomment (and adjust) the following lines if you wish to explicitly specify the path to a compiler which isn't the default compiler
-			"cxx": "mpiCC",  # or clang++ or mpiCC or icpc, etc. -- The C++ compiler.
-			"cc": "mpicc",  # or clang or mpicc or icc, etc. -- The plain C compiler.
-		},
-		"removes": {
-			"flags": {
-				"compile": [
-					"march=core2",
-					"mtune=generic",
-					"malign-double",
-					"march=pentium4",
-					"march=athlon",
-					"mtune=itanium2"
-				],
-			}
-		},
-	},
+## Uncomment (and adjust) the following lines if you wish to explicitly specify the path to a compiler which isn't the default compiler
+            "cxx" : "clang++", # or clang++ or mpiCC or icpc, etc. -- The C++ compiler.
+            "cc"  : "clang", # or clang or mpicc or icc, etc. -- The plain C compiler.
+        },
+        "removes" : {
+	    "flags":{
+             "compile" : [
+                   "march=core2",
+                   "mtune=generic",
+                   "malign-double",
+                   "march=pentium4",
+                   "march=athlon",
+                   "mtune=itanium2"
+                ],
+            }
+        },
+    },
 }
